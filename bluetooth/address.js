@@ -18,7 +18,7 @@ class AddressCharacteristic extends Characteristic{
             console.log(offset,this.RESULT_ATTR_NOT_LONG)
             callback(this.RESULT_ATTR_NOT_LONG,null)
         } else {
-            const buf = new Buffer.from(address,'utf-8')
+            const buf = new Buffer.from(this.address,'utf-8')
             console.log("on read request value ",buf.toString('hex'))
             console.log("on read request value ",buf.toString())
             console.log(offset,this.RESULT_SUCCESS)
@@ -31,6 +31,7 @@ class AddressCharacteristic extends Characteristic{
         for (var devName in interfaces) {
             var iface = interfaces[devName];
             for (var i = 0; i < iface.length; i++) {
+                console.log(iface[i]);
               var alias = iface[i];
               if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal){
                 this.address=alias.address
@@ -42,5 +43,5 @@ class AddressCharacteristic extends Characteristic{
     }
 }
 
-module.exports = new AddressCharacteristic()
+module.exports = AddressCharacteristic
 

@@ -9,7 +9,7 @@ const Characteristic = bleno.Characteristic
 
 class ActionCharacteristic extends Characteristic{
     constructor(){
-        super({uuid:uuidv4(),properties:['write'],value:null})
+        super({uuid:uuidv4(),properties:['write','read'],value:null})
         this._value = new Buffer.alloc(0)
         this._updateValueCallback = null
         this._onChange = null
@@ -35,7 +35,14 @@ class ActionCharacteristic extends Characteristic{
     setReceiveSetupListener(callback){
         this._onReceiveSetup = callback
     }
+
+    onReadRequest(offset, callback) {
+        console.log('CustomCharacteristic onReadRequest');
+        var data = new Buffer.alloc(1);
+        data.writeUInt8(42, 0);
+        callback(this.RESULT_SUCCESS, data);
+    };
 }
 
-module.exports = new SettingCharacteristic()
+module.exports = SettingCharacteristic
 

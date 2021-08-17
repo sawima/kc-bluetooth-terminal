@@ -1,7 +1,7 @@
-const bleno = require('blueno')
+const bleno = require('bleno')
 const { v4: uuidv4 } = require('uuid')
 
-const BlenoPrimaryService = bleo.PrimaryService
+const BlenoPrimaryService = bleno.PrimaryService
 const primaryServiceUuid = uuidv4()
 
 const AddressCharacteristic =  require("./address")
@@ -10,9 +10,9 @@ const StateCharacteristic = require('./state')
 
 class BluetoothSetupServer{
     constructor(){
-        this.address = AddressCharacteristic,
-        this.state = StateCharacteristic,
-        this.setting = SettingCharacteristic
+        this.address =  new AddressCharacteristic(),
+        this.state = new StateCharacteristic(),
+        this.setting =  new SettingCharacteristic()
     }
 
     setReceiveSetupListener(onReceiveSetup){
@@ -25,27 +25,37 @@ class BluetoothSetupServer{
 
     startBle(){
         console.log('start wifi config through ble')
-        bleno.on("stateChange",(state)=>{
-            console.log("on =< stateChange", state);
-            if(state === 'pweredOn'){
-                bleno.startAdvertising("kima ternimal",[primaryServiceUuid])
-            } else {
-                bleno.stopAdvertising()
-            }
-        })
+        bleno.on('stateChange', function(state) {
+            console.log('on -> stateChange: ' + state);
+                if (state === 'poweredOn') {
+                    console.log("request startAdvertising");
+                    bleno.startAdvertising('kima blue', [primaryServiceUuid]);  
+                } else {
+                    console.log("request stopAdvertising");
+                    bleno.stopAdvertising(); 
+                }
+            });
+        // const setupCharacteristic = this.setup
+        const stateCharacteristic = this.state
+        const addressCharacteristic = this.address
+        const settingCharacteristic = this.setting
+        bleno.on('advertisingStart', function(error) {
+            console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
         
-        bleno.on("advertisingStart",(err)=>{
-            console.log("oon advertising Start: "+ (error ? 'error' + error: 'sucess'));
-        
-            if(!error){
-                bleno.setService([
+            if (!error) {
+                bleno.setServices([
                     new BlenoPrimaryService({
-                        uuid:primaryServiceUuid,
-                        characteristics:[this.address,this.state,this.setting]
+                        uuid: primaryServiceUuid,
+                        name: "what the service",
+                        characteristics: [
+                            settingCharacteristic,
+                            stateCharacteristic,
+                            addressCharacteristic
+                        ]
                     })
-                ])
+                ]);
             }
-        })
+        });
     }
     connectionSuccessed(){
         this.state.setState(true)

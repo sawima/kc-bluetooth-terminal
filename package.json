@@ -1,0 +1,28 @@
+{
+  "name": "kc-bluetooth-terminal",
+  "version": "0.0.1",
+  "description": "signage bluetooth peripheral",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sawima/kc-bluetooth-terminal.git"
+  },
+  "keywords": [
+    "bleno",
+    "ubuntu"
+  ],
+  "author": "james@kimatech.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sawima/kc-bluetooth-terminal/issues"
+  },
+  "homepage": "https://github.com/sawima/kc-bluetooth-terminal#readme",
+  "dependencies": {
+    "bleno": "npm:@abandonware/bleno@^0.5.1-4",
+    "node-wifi": "^2.0.15",
+    "uuid": "^8.3.2"
+  }
+}

@@ -54,5 +54,5 @@ class StateCharacteristic extends Characteristic{
     }
 }
 
-module.exports = new StateCharacteristic()
+module.exports = StateCharacteristic
 
