@@ -34,9 +34,10 @@ const wifiConnect = (setting) => {
                                     wifi.connect(setting, err => {
                                         if (err) {
                                             console.log("ssid is not null ",err);
-                                            
                                             reject(err)
                                         }
+                                        console.log("reject but still run");
+                                        
                                         console.log("wifi connected");
                                         resolve();
                                     });
