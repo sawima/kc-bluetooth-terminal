@@ -1,12 +1,13 @@
 const BluetoothSetupServer = require('./bluetooth/index')
-const wificonn = require("./network/wifi")
+const { wifiConnect } = require("./network/wifi")
 
 const bluServer = new BluetoothSetupServer()
 
 bluServer.setReceiveSetupListener(setup => {
-    wificonn.connect(setup).then(()=>{
+    wifiConnect.connect(setup).then(()=>{
         console.log("network connected");
         bluServer.getIpAddress();
+        bluServer.getWifiInfo();
     }).catch((err)=>{
         console.log("error happend",err);
     });

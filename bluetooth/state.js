@@ -9,7 +9,7 @@ const Characteristic = bleno.Characteristic
 
 class StateCharacteristic extends Characteristic{
     constructor(){
-        super({uuid:uuidv4(),properties:['read','notify']})
+        super({uuid:"c6c8c1a3-5b3e-439c-b6cc-a9b8708a075c",properties:['read','notify']})
         this.state = {
             connected: false
         }

@@ -1,5 +1,57 @@
 var wifi = require('node-wifi');
 
+wifi.init({ iface: "wlan0" });
+// wifi.init({ iface: "wlp3s0" });
+
+exports.wifiConnect = (setting) => {
+    return new Promise((resolve, reject) => {
+        wifi.scan((error, networks) => {
+            if (error) {
+                reject(error)
+            } else {
+                wifi.connect(setting, err => {
+                    if (err) {
+                        reject(err)
+                    }
+                    console.log("wifi connected");
+                    resolve();
+                });
+            }
+        })
+    })
+}
+
+exports.wifiInfo = () => {
+    return new Promise((resolve,reject)=>{
+        wifi.getCurrentConnections((error, currentConnections) => {
+            if (error) {
+                console.log("error",error);
+                reject()
+            } else {
+                console.log("current connection!");
+                console.log(currentConnections);
+                console.log(typeof(currentConnections));
+    
+                if(currentConnections && Object.keys(currentConnections).length === 0 ){
+                    console.log("current connection is a empty object");
+                    resolve(null)
+                } else{
+                    let ssid = "";
+                    for(var conn of currentConnections){
+                        if(conn.iface == 'wlan0'){
+                            ssid = conn.ssid
+                            break;
+                        }
+                    }
+                    console.log("find ssid",ssid);
+
+                    resolve(ssid);
+                }
+            }
+        })
+    })
+}
+
 // scanNetork = ()=>{
 //     return new Promise((resolve,reject)=>{
 //         wifi.scan((error, networks) => {
@@ -33,24 +85,7 @@ var wifi = require('node-wifi');
 //     })
 // }
 
-module.exports.connect = (setting) => {
-    wifi.init({ iface: "wlan0" });
-    return new Promise((resolve, reject) => {
-        wifi.scan((error, networks) => {
-            if (error) {
-                reject(error)
-            } else {
-                wifi.connect(setting, err => {
-                    if (err) {
-                        reject(err)
-                    }
-                    console.log("wifi connected");
-                    resolve();
-                });
-            }
-        })
-    })
-}
+
 
 
 // Initialize wifi module

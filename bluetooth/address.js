@@ -9,8 +9,9 @@ const Characteristic = bleno.Characteristic
 
 class AddressCharacteristic extends Characteristic{
     constructor(){
-        super({uuid:uuidv4(),properties:['read']})
+        super({uuid:"2d75504c-b822-44b3-bb81-65d7b6cbdae1",properties:['read']})
         this.address = '0.0.0.0'
+        this.getIpAddress()
     }
 
     onReadRequest(offset, callback){

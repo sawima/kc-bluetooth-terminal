@@ -6,7 +6,7 @@ const Characteristic = bleno.Characteristic
 
 class SettingCharacteristic extends Characteristic{
     constructor(){
-        super({uuid:uuidv4(),properties:['write'],value:null})
+        super({uuid:"493ebfb0-b690-4ae8-a77a-329619c6f613",properties:['write'],value:null})
         this._value = new Buffer.alloc(0)
         this._updateValueCallback = null
         // this._onChange = null
