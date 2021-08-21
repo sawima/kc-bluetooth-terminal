@@ -13,7 +13,7 @@ class SettingCharacteristic extends Characteristic{
         this._value = new Buffer.alloc(0)
         this._updateValueCallback = null
         this._onChange = null
-        thiss._onReceiveSetup = null
+        this._onReceiveSetup = null
     }
 
     onWriteRequest(data,offset,withoutResponse,callback){
