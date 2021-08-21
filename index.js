@@ -4,7 +4,7 @@ const { wifiConnect } = require("./network/wifi")
 const bluServer = new BluetoothSetupServer()
 
 bluServer.setReceiveSetupListener(setup => {
-    wifiConnect.connect(setup).then(()=>{
+    wifiConnect(setup).then(()=>{
         console.log("network connected");
         bluServer.getIpAddress();
         bluServer.getWifiInfo();

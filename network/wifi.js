@@ -9,6 +9,7 @@ exports.wifiConnect = (setting) => {
             if (error) {
                 reject(error)
             } else {
+                console.log(networks);
                 wifi.connect(setting, err => {
                     if (err) {
                         reject(err)
