@@ -44,6 +44,7 @@ class AddressCharacteristic extends Characteristic{
               }
             }
           }
+        this.address = '0.0.0.0';
     }
 }
 
