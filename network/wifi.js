@@ -19,11 +19,30 @@ const wifiConnect = (setting) => {
             //         });
             //     }
             // })
-            wifi.disconnect((diserror)=>{
-                if(diserror){
-                    console.log("disconnect error:",diserror);
-                    reject(diserror)
-                } else{
+            wifiInfo().then((ssid)=>{
+                if(ssid!=null){
+                    wifi.disconnect((diserror)=>{
+                        if(diserror){
+                            console.log("disconnect error:",diserror);
+                            reject(diserror)
+                        } else{
+                            wifi.scan((error, networks) => {
+                                if (error) {
+                                    reject(error)
+                                } else {
+                                    console.log(networks);
+                                    wifi.connect(setting, err => {
+                                        if (err) {
+                                            reject(err)
+                                        }
+                                        console.log("wifi connected");
+                                        resolve();
+                                    });
+                                }
+                            })
+                        }
+                    })
+                } else {
                     wifi.scan((error, networks) => {
                         if (error) {
                             reject(error)
@@ -39,13 +58,50 @@ const wifiConnect = (setting) => {
                         }
                     })
                 }
+            }).catch((error)=>{
+                wifi.scan((error, networks) => {
+                    if (error) {
+                        reject(error)
+                    } else {
+                        console.log(networks);
+                        wifi.connect(setting, err => {
+                            if (err) {
+                                reject(err)
+                            }
+                            console.log("wifi connected");
+                            resolve();
+                        });
+                    }
+                })
             })
+
+            // wifi.disconnect((diserror)=>{
+            //     if(diserror){
+            //         console.log("disconnect error:",diserror);
+            //         reject(diserror)
+            //     } else{
+            //         wifi.scan((error, networks) => {
+            //             if (error) {
+            //                 reject(error)
+            //             } else {
+            //                 console.log(networks);
+            //                 wifi.connect(setting, err => {
+            //                     if (err) {
+            //                         reject(err)
+            //                     }
+            //                     console.log("wifi connected");
+            //                     resolve();
+            //                 });
+            //             }
+            //         })
+            //     }
+            // })
         })
 }
 
 module.exports.wifiConnect = wifiConnect
 
-exports.wifiInfo = () => {
+const wifiInfo = () => {
     return new Promise((resolve,reject)=>{
         wifi.getCurrentConnections((error, currentConnections) => {
             if (error) {
@@ -75,6 +131,8 @@ exports.wifiInfo = () => {
         })
     })
 }
+
+module.exports.wifiInfo = wifiInfo
 
 // scanNetork = ()=>{
 //     return new Promise((resolve,reject)=>{
