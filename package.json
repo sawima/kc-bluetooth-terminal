@@ -22,7 +22,6 @@
   "homepage": "https://github.com/sawima/kc-bluetooth-terminal#readme",
   "dependencies": {
     "bleno": "npm:@abandonware/bleno@^0.5.1-4",
-    "node-wifi": "^2.0.15",
-    "uuid": "^8.3.2"
+    "node-wifi": "^2.0.15"
   }
 }

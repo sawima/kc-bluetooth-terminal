@@ -23,7 +23,6 @@ class WifiCharacteristic extends Characteristic{
         } else {
             this.getWifiInfo()
             const buf = new Buffer.from(this.ssid,'utf-8')
-            console.log("on read request value ",buf.toString('hex'))
             console.log("on read request value ",buf.toString())
             console.log(offset,this.RESULT_SUCCESS)
             callback(this.RESULT_SUCCESS,buf)

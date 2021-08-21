@@ -138,7 +138,6 @@ const wifiInfo = () => {
                         }
                     }
                     console.log("find ssid",ssid);
-
                     resolve(ssid);
                 }
             }
