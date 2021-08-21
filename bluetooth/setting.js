@@ -1,16 +1,19 @@
 const bleno = require("bleno")
-const interfaces = require('os').networkInterfaces()
+// const interfaces = require('os').networkInterfaces()
 const { v4: uuidv4 } = require('uuid') 
+
+// const addressUUID = uuidv4()
+// const properties = ['read']
 
 const Characteristic = bleno.Characteristic
 
 class SettingCharacteristic extends Characteristic{
     constructor(){
-        super({uuid:"493ebfb0-b690-4ae8-a77a-329619c6f613",properties:['write'],value:null})
+        super({uuid:uuidv4(),properties:['write'],value:null})
         this._value = new Buffer.alloc(0)
         this._updateValueCallback = null
-        // this._onChange = null
-        this._onReceiveSetup = null
+        this._onChange = null
+        thiss._onReceiveSetup = null
     }
 
     onWriteRequest(data,offset,withoutResponse,callback){
@@ -23,16 +26,18 @@ class SettingCharacteristic extends Characteristic{
                 this._onReceiveSetup(setup)
             }
         }
+        // var result = Characteristic.RESULT_SUCCESS;
+        callback(this.RESULT_SUCCESS);
     }
 
-    // addChangeListener(callback){
-    //     this._onChange = callback
-    // }
+    addChangeListener(callback){
+        this._onChange = callback
+    }
 
     setReceiveSetupListener(callback){
         this._onReceiveSetup = callback
     }
 }
 
-module.exports = SettingCharacteristic
+module.exports = new SettingCharacteristic()
 

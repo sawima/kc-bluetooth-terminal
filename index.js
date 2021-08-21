@@ -10,7 +10,7 @@ bluServer.setReceiveSetupListener(setup => {
         bluServer.getWifiInfo();
     }).catch((err)=>{
         console.log("error happend",err);
-        throw err;
+        throw err
     });
     // wificonn
     //   .connect(setup.ssid, setup.psk)
