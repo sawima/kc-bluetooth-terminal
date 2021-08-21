@@ -19,7 +19,7 @@ const wifiConnect = (setting) => {
             //         });
             //     }
             // })
-            wifi.disconnect({iface:"wlan0"},(diserror)=>{
+            wifi.disconnect((diserror)=>{
                 if(diserror){
                     console.log("disconnect error:",diserror);
                     reject(diserror)
