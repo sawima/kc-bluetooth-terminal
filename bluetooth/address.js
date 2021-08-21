@@ -1,6 +1,7 @@
 const bleno = require("bleno")
-const interfaces = require('os').networkInterfaces()
-const { v4: uuidv4 } = require('uuid') 
+// const interfaces = require('os').networkInterfaces()
+const os = require('os')
+// const { v4: uuidv4 } = require('uuid') 
 
 // const addressUUID = uuidv4()
 // const properties = ['read']
@@ -29,15 +30,16 @@ class AddressCharacteristic extends Characteristic{
     }
 
     getIpAddress(){
+        const interfaces = os.networkInterfaces();
         exit_loops:
         for (var devName in interfaces) {
             var iface = interfaces[devName];
             for (var i = 0; i < iface.length; i++) {
                 console.log(iface[i]);
               var alias = iface[i];
-              if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal){
+              if (alias.iface == 'wlan0' && alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal){
                 this.address=alias.address
-                console.log("address is ",this.address);
+                console.log("address is!! ",this.address);
                 break exit_loops
               }
             }
