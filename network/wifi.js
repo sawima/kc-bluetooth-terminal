@@ -5,41 +5,28 @@ wifi.init({ iface: "wlan0" });
 
 const wifiConnect = (setting) => {
     wifi.disconnect().then(()=>{
-        wifi.scan((error, networks) => {
-            if (error) {
-                reject(error)
-            } else {
-                console.log(networks);
-                wifi.connect(setting, err => {
-                    if (err) {
-                        reject(err)
-                    }
-                    console.log("wifi connected");
-                    resolve();
-                });
-            }
+        return new Promise((resolve, reject) => {
+            wifi.disconnect().then(()=>{
+                wifi.scan().then((networks))
+            })
+            wifi.scan((error, networks) => {
+                if (error) {
+                    reject(error)
+                } else {
+                    console.log(networks);
+                    wifi.connect(setting, err => {
+                        if (err) {
+                            reject(err)
+                        }
+                        console.log("wifi connected");
+                        resolve();
+                    });
+                }
+            })
         })
     })
 
-    // return new Promise((resolve, reject) => {
-    //     wifi.disconnect().then(()=>{
-    //         wifi.scan().then((networks))
-    //     })
-    //     wifi.scan((error, networks) => {
-    //         if (error) {
-    //             reject(error)
-    //         } else {
-    //             console.log(networks);
-    //             wifi.connect(setting, err => {
-    //                 if (err) {
-    //                     reject(err)
-    //                 }
-    //                 console.log("wifi connected");
-    //                 resolve();
-    //             });
-    //         }
-    //     })
-    // })
+
 }
 
 module.exports.wifiConnect = wifiConnect
