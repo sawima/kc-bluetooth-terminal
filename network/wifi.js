@@ -5,7 +5,7 @@ wifi.init({ iface: "wlan0" });
 
 const wifiConnect = (setting) => {
         return new Promise((resolve, reject) => {
-            wifi.disconnect((diserror)=>{
+            wifi.disconnect({iface:"wlan0"},(diserror)=>{
                 if(diserror){
                     console.log("disconnect error:",diserror);
                     reject(diserror)
