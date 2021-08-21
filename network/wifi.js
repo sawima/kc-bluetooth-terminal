@@ -43,6 +43,7 @@ const wifiConnect = (setting) => {
                         }
                     })
                 } else {
+                    console.log("current connection is null");
                     wifi.scan((error, networks) => {
                         if (error) {
                             reject(error)
@@ -106,7 +107,7 @@ const wifiInfo = () => {
         wifi.getCurrentConnections((error, currentConnections) => {
             if (error) {
                 console.log("error",error);
-                reject()
+                reject(null)
             } else {
                 console.log("current connection!");
                 console.log(currentConnections);
@@ -114,7 +115,7 @@ const wifiInfo = () => {
     
                 if(currentConnections && Object.keys(currentConnections).length === 0 ){
                     console.log("current connection is a empty object");
-                    resolve(null)
+                    reject(null)
                 } else{
                     let ssid = "";
                     for(var conn of currentConnections){

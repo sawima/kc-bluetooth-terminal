@@ -36,6 +36,7 @@ class WifiCharacteristic extends Characteristic{
             console.log(wifiID);
             that.ssid=wifiID
         }).catch((error)=>{
+            that.ssid=""
             console.log("error ",error);
         })
     }
