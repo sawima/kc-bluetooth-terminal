@@ -37,7 +37,7 @@ class AddressCharacteristic extends Characteristic{
             for (var i = 0; i < iface.length; i++) {
                 console.log(iface[i]);
               var alias = iface[i];
-              if (alias.iface == 'wlan0' && alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal){
+              if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal){
                 this.address=alias.address
                 console.log("address is!! ",this.address);
                 break exit_loops
