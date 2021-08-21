@@ -5,27 +5,41 @@ wifi.init({ iface: "wlan0" });
 
 const wifiConnect = (setting) => {
         return new Promise((resolve, reject) => {
-            wifi.disconnect({iface:"wlan0"},(diserror)=>{
-                if(diserror){
-                    console.log("disconnect error:",diserror);
-                    reject(diserror)
-                } else{
-                    wifi.scan((error, networks) => {
-                        if (error) {
-                            reject(error)
-                        } else {
-                            console.log(networks);
-                            wifi.connect(setting, err => {
-                                if (err) {
-                                    reject(err)
-                                }
-                                console.log("wifi connected");
-                                resolve();
-                            });
+            wifi.scan((error, networks) => {
+                if (error) {
+                    reject(error)
+                } else {
+                    console.log(networks);
+                    wifi.connect(setting, err => {
+                        if (err) {
+                            reject(err)
                         }
-                    })
+                        console.log("wifi connected");
+                        resolve();
+                    });
                 }
             })
+            // wifi.disconnect({iface:"wlan0"},(diserror)=>{
+            //     if(diserror){
+            //         console.log("disconnect error:",diserror);
+            //         reject(diserror)
+            //     } else{
+            //         wifi.scan((error, networks) => {
+            //             if (error) {
+            //                 reject(error)
+            //             } else {
+            //                 console.log(networks);
+            //                 wifi.connect(setting, err => {
+            //                     if (err) {
+            //                         reject(err)
+            //                     }
+            //                     console.log("wifi connected");
+            //                     resolve();
+            //                 });
+            //             }
+            //         })
+            //     }
+            // })
         })
 }
 
