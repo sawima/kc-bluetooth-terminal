@@ -3,8 +3,8 @@ var wifi = require('node-wifi');
 wifi.init({ iface: "wlan0" });
 // wifi.init({ iface: "wlp3s0" });
 
-exports.wifiConnect = (setting) => {
-    return new Promise((resolve, reject) => {
+const wifiConnect = (setting) => {
+    wifi.disconnect().then(()=>{
         wifi.scan((error, networks) => {
             if (error) {
                 reject(error)
@@ -20,7 +20,29 @@ exports.wifiConnect = (setting) => {
             }
         })
     })
+
+    // return new Promise((resolve, reject) => {
+    //     wifi.disconnect().then(()=>{
+    //         wifi.scan().then((networks))
+    //     })
+    //     wifi.scan((error, networks) => {
+    //         if (error) {
+    //             reject(error)
+    //         } else {
+    //             console.log(networks);
+    //             wifi.connect(setting, err => {
+    //                 if (err) {
+    //                     reject(err)
+    //                 }
+    //                 console.log("wifi connected");
+    //                 resolve();
+    //             });
+    //         }
+    //     })
+    // })
 }
+
+module.exports.wifiConnect = wifiConnect
 
 exports.wifiInfo = () => {
     return new Promise((resolve,reject)=>{
