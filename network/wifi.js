@@ -33,6 +33,8 @@ const wifiConnect = (setting) => {
                                     console.log(networks);
                                     wifi.connect(setting, err => {
                                         if (err) {
+                                            console.log("ssid is not null ",err);
+                                            
                                             reject(err)
                                         }
                                         console.log("wifi connected");
@@ -51,8 +53,12 @@ const wifiConnect = (setting) => {
                             console.log(networks);
                             wifi.connect(setting, err => {
                                 if (err) {
+                                    console.log("ssid is null ",err);
+                                    
                                     reject(err)
                                 }
+                                console.log("ssid is null");
+                                
                                 console.log("wifi connected");
                                 resolve();
                             });
@@ -62,13 +68,19 @@ const wifiConnect = (setting) => {
             }).catch((error)=>{
                 wifi.scan((error, networks) => {
                     if (error) {
+                        console.log("current connection is not correct");
+                        
                         reject(error)
                     } else {
                         console.log(networks);
                         wifi.connect(setting, err => {
                             if (err) {
+                                console.log("current connection error,reject ",err);
+                                
                                 reject(err)
                             }
+                            console.log("current connection error");
+
                             console.log("wifi connected");
                             resolve();
                         });
