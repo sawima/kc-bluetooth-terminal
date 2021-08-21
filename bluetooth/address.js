@@ -31,6 +31,7 @@ class AddressCharacteristic extends Characteristic{
 
     getIpAddress(){
         const interfaces = os.networkInterfaces();
+        this.address = '0.0.0.0'
         exit_loops:
         for (var devName in interfaces) {
             var iface = interfaces[devName];
@@ -43,8 +44,8 @@ class AddressCharacteristic extends Characteristic{
                 break exit_loops
               }
             }
-          }
-        this.address = '0.0.0.0';
+        }
+        
     }
 }
 
