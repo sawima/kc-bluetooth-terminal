@@ -1,9 +1,4 @@
 const bleno = require("bleno")
-const interfaces = require('os').networkInterfaces()
-const { v4: uuidv4 } = require('uuid') 
-
-// const addressUUID = uuidv4()
-// const properties = ['read']
 
 const Characteristic = bleno.Characteristic
 

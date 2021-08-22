@@ -7,6 +7,7 @@ bluServer.setReceiveSetupListener(setup => {
     wifiConnect(setup).then(()=>{
         console.log("network connected");
         bluServer.getIpAddress();
+        bluServer.getMacAddress();
         bluServer.getWifiInfo();
     }).catch((err)=>{
         console.log("error happend",err);

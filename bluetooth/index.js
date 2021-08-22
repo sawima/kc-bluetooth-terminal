@@ -1,12 +1,11 @@
 const bleno = require('bleno')
-// const { v4: uuidv4 } = require('uuid')
 
 const BlenoPrimaryService = bleno.PrimaryService
 const primaryServiceUuid = 'd6cb1959-8010-43bd-8ef7-48dbd249b984'
 
 const AddressCharacteristic =  require("./address")
 const SettingCharacteristic = require('./setting')
-// const StateCharacteristic = require('./state')
+const MacCharacteristic = require('./hardwaremac')
 const WifiCharacteristic = require('./wifiInfo')
 
 function makeid(length) {
@@ -22,7 +21,7 @@ function makeid(length) {
 class BluetoothSetupServer{
     constructor(){
         this.address =  new AddressCharacteristic(),
-        // this.state = new StateCharacteristic(),
+        this.mac = new MacCharacteristic(),
         this.setting =  new SettingCharacteristic()
         this.wifiInfo = new WifiCharacteristic()
     }
@@ -34,6 +33,11 @@ class BluetoothSetupServer{
     getIpAddress(){
         this.address.getIpAddress()
     }
+
+    getIpAddress(){
+        this.mac.getMacAddress()
+    }
+
 
     getWifiInfo(){
         this.wifiInfo.getWifiInfo()
@@ -51,8 +55,7 @@ class BluetoothSetupServer{
                     bleno.stopAdvertising(); 
                 }
             });
-        // const setupCharacteristic = this.setup
-        // const stateCharacteristic = this.state
+        const macCharacteristic = this.mac
         const addressCharacteristic = this.address
         const settingCharacteristic = this.setting
         const wifiCharacteristic = this.wifiInfo
@@ -63,10 +66,9 @@ class BluetoothSetupServer{
                 bleno.setServices([
                     new BlenoPrimaryService({
                         uuid: primaryServiceUuid,
-                        name: "what the service",
                         characteristics: [
                             settingCharacteristic,
-                            // stateCharacteristic,
+                            macCharacteristic,
                             addressCharacteristic,
                             wifiCharacteristic
                         ]
@@ -74,9 +76,6 @@ class BluetoothSetupServer{
                 ]);
             }
         });
-    }
-    connectionSuccessed(){
-        this.state.setState(true)
     }
 }
 
