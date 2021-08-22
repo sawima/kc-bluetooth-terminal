@@ -6,7 +6,7 @@ const primaryServiceUuid = 'd6cb1959-8010-43bd-8ef7-48dbd249b984'
 
 const AddressCharacteristic =  require("./address")
 const SettingCharacteristic = require('./setting')
-const StateCharacteristic = require('./state')
+// const StateCharacteristic = require('./state')
 const WifiCharacteristic = require('./wifiInfo')
 
 function makeid(length) {
@@ -22,7 +22,7 @@ function makeid(length) {
 class BluetoothSetupServer{
     constructor(){
         this.address =  new AddressCharacteristic(),
-        this.state = new StateCharacteristic(),
+        // this.state = new StateCharacteristic(),
         this.setting =  new SettingCharacteristic()
         this.wifiInfo = new WifiCharacteristic()
     }
@@ -52,7 +52,7 @@ class BluetoothSetupServer{
                 }
             });
         // const setupCharacteristic = this.setup
-        const stateCharacteristic = this.state
+        // const stateCharacteristic = this.state
         const addressCharacteristic = this.address
         const settingCharacteristic = this.setting
         const wifiCharacteristic = this.wifiInfo
@@ -66,7 +66,7 @@ class BluetoothSetupServer{
                         name: "what the service",
                         characteristics: [
                             settingCharacteristic,
-                            stateCharacteristic,
+                            // stateCharacteristic,
                             addressCharacteristic,
                             wifiCharacteristic
                         ]
